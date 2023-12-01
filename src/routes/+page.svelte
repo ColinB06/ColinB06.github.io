@@ -8,13 +8,10 @@
 <h3 class="name">Colin Bronten</h3>    
 
 <p id="inspo">
-  "The only way to learn a new programming language is by writing
-  programs in it." - Dennis Ritchie, creator of the C programming language.
+  Welcome!
   </p>
   <p style="background-color:pink">
-  "Every great developer you know got there by solving problems they
-  were unqualified to solve until they actually did it." - Patrick McKenzie,
-  software engineer and entrepreneur.
+ Welcome!
   </p>
 
 
