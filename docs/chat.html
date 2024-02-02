@@ -5,21 +5,22 @@
 		<link rel="icon" href="./favicon.png" />
 		<meta name="viewport" content="width=device-width" />
 		<meta http-equiv="content-security-policy" content="">
-		<link rel="modulepreload" href="./_app/immutable/start-52e58ab7.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index-88337dfe.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/singletons-6b01928e.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index-fdbb0ac4.js">
+		<link href="./_app/immutable/assets/_page-c7c4bafc.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/start-05c2903f.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index-5aef03ba.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons-69d0af45.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index-aa0532eb.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper-41c905a7.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/control-f5b05b5f.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/parse-f0c618df.js">
-		<link rel="modulepreload" href="./_app/immutable/components/pages/_layout.svelte-e2d99e9e.js">
+		<link rel="modulepreload" href="./_app/immutable/components/pages/_layout.svelte-476cbffe.js">
 		<link rel="modulepreload" href="./_app/immutable/modules/pages/_layout.js-9cbb603b.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/_layout-da46b06b.js">
-		<link rel="modulepreload" href="./_app/immutable/components/pages/chat/_page.svelte-dfa956f1.js"><!-- HEAD_svelte-gynwln_START --><style>nav {
+		<link rel="modulepreload" href="./_app/immutable/components/pages/chat/_page.svelte-b13801a4.js"><!-- HEAD_svelte-1lc4dl3_START --><link rel="stylesheet" href="/pico.min.css"><style>nav {
       margin-left: 10%;
       margin-right: 10%;
     }
-  </style><!-- HEAD_svelte-gynwln_END -->
+  </style><!-- HEAD_svelte-1lc4dl3_END -->
 	</head>
 	<body>
 		<div style="display: contents">
@@ -31,6 +32,8 @@
   <a href="/photoapp">PhotoApp</a>
   <a href="/register">Register</a>
   <a href="/todo">Todo</a>
+  <a href="/chat">Chat</a>
+  <a href="/scroll">Scroll</a>
 
   <a target="_blank" rel="noreferrer" href="https://github.com/lisaviktorsson/lisaviktorsson.github.com">GitHub</a></nav>
 
@@ -40,18 +43,26 @@
 
 <div class="container"><h1>TODO: Complete assignment</h1>
   <div class="scrollable">
-    <article><span>Is something troubling you ?</span></article></div>
-  <form method="post"><input type="text" name="text"></form></div>
+    <article class="eliza-message svelte-1fpxb1a"><span>eliza: Please tell me what's been bothering you.</span>
+        
+      </article>
 
 
-		<script type="module" data-sveltekit-hydrate="1rrz0dl">
-			import { start } from "./_app/immutable/start-52e58ab7.js";
+    <article id="visible" class="svelte-1fpxb1a"><span class="circle svelte-1fpxb1a"></span>
+      <span class="circle svelte-1fpxb1a"></span>
+      <span class="circle svelte-1fpxb1a"></span></article></div>
+  <form method="post"><input type="text" name="text"></form>
+</div>
+
+
+		<script type="module" data-sveltekit-hydrate="9zob6t">
+			import { start } from "./_app/immutable/start-05c2903f.js";
 
 			start({
 				env: {},
 				paths: {"base":"","assets":""},
-				target: document.querySelector('[data-sveltekit-hydrate="1rrz0dl"]').parentNode,
-				version: "1702632635272",
+				target: document.querySelector('[data-sveltekit-hydrate="9zob6t"]').parentNode,
+				version: "1706864704206",
 				hydrate: {
 					node_ids: [0, 8],
 					data: [null,null],

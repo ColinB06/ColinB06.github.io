@@ -10,6 +10,8 @@
   <a href="/photoapp">PhotoApp</a>
   <a href="/register">Register</a>
   <a href="/todo">Todo</a>
+  <a href="/chat">Chat</a>
+  <a href="/scroll">Scroll</a>
 
   <a
     target="_blank" rel="noreferrer"

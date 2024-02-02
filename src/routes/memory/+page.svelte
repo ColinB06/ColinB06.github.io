@@ -1,37 +1,67 @@
 <script>
+  let ScorePlayer1 = 0;
+  let ScorePlayer2 = 0;
   let cards = [];
   for (let index = 0; index < 12; index++) {
     cards.push({
-      id: 5, // TODO: unique ids per card card
-      img: "/notrick.gif", // TODO: unique images per card card
+      id: index, // TODO: unique ids per card card
+      img: `/image${index % 6}.png`, // TODO: unique images per card card
       flipped: false,  // TODO: think
       completed: false,
     });
   }
   let flipcount = 0;
+  let blueTurn = true
+
+
   function flip(card) {
     // flip card over if two cards are not already flipped
     // TODO: and card is already not flipped
-    if (card.flipped && flipcount < 2) {
+    if (!card.flipped && flipcount < 2) {
+      card.flipped = true
+      flipcount ++
       // TODO: Probably do what?
 
       // flip the cards over after 2s from seeing both cards
-      if (flipcount == 4) {
+      if (flipcount == 2) {
+
+
+          
+          let nextTurn = !blueTurn;
+          
+          cards.forEach((c) => {
+            if (c.flipped && c.img == card.img && c.id != card.id){
+              card.completed = true
+              c.completed = true
+              nextTurn = blueTurn;
+              
+            }
+          
+          });
+          
+
+
         setTimeout(() => {
           // flip over cards that have not been marked as "completed"
           cards.forEach((card) => {
             card.flipped = card.completed;
           });
+
           flipcount = 0;
+          blueTurn = nextTurn;
           cards = cards;
+
+         
+
         }, 2000);
       }
       cards = cards;
     } else {
-      alert("chill");
+      alert("lugn");
     }
+
   }
-</script>
+  </script>
 
 <main>
   <div class="row">
@@ -51,6 +81,17 @@
       </div>
     {/each}
   </div>
+  <div class="red-box">
+    <p> {ScorePlayer2}</p>
+  </div>
+<div class="blue-box">
+  <p> {ScorePlayer1}</p>
+</div>
+<div class='turn-box'  style={blueTurn?"right: 10px;":"left:10px"}>
+</div>
+
+
+
 </main>
 
 <style>
@@ -59,6 +100,7 @@
     display: flex;
     place-content: center;
     place-items: center;
+
   }
 
   .row {
@@ -114,4 +156,33 @@
     -webkit-backface-visibility: hidden;
     position: absolute;
   }
+
+  .red-box, .blue-box, .turn-box {
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  bottom : 0;
+  text-align: center;
+  font-size: 30px;
+  font-style: normal;
+  }
+  .red-box {
+  background-color: red;
+  z-index:2;
+  left: 0;
+  }
+  .blue-box {
+  background-color: blue;
+  z-index:2;
+  right: 0;
+  }
+  .turn-box {
+  bottom: 10px;
+  z-index: 1;
+  background-color: rgb(0, 255, 102);
+  box-shadow: 0 0 20px 20px  rgb(0, 255, 102);
+  }
+
+
+
 </style>
