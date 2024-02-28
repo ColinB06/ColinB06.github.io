@@ -110,7 +110,7 @@
           transform: scale(1.4);
         }
         100% {
-          transform: scale(2);
+          transform: scale(1);
         }
       }
       /* CSS-stilar för .circle med index 1 (den första cirkeln) */

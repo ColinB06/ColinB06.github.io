@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PC Parts Webshop</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+
+    main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 20px;
+    }
+
+    .category,
+    .product {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin: 10px;
+      text-align: center;
+      border-radius: 10px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .category:hover,
+    .product:hover {
+      transform: scale(1.05);
+    }
+
+    .category h2,
+    .product h2 {
+      margin: 10px 0;
+      font-size: 1.5em;
+    }
+
+    .category {
+      cursor: pointer;
+    }
+
+    #cart {
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      display: none;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #cart h2 {
+      margin: 0;
+      font-size: 1.8em;
+    }
+
+    #cart-items {
+      list-style: none;
+      padding: 0;
+    }
+
+    #cart-items li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    #cart-items img {
+      max-width: 50px;
+      height: auto;
+      margin-right: 10px;
+      border-radius: 5px;
+    }
+
+    .product img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+      max-height: 100px;
+    }
+
+    #cart button,
+    #return-btn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease-in-out;
+      align-items: center;
+    }
+
+    #cart button:hover,
+    #return-btn:hover {
+      background-color: #555;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>PC Parts Webshop</h1>
+    <button onclick="toggleCart()">Cart</button>
+  </header>
+
+  <main id="product-list"></main>
+
+  <div id="cart" class="hidden">
+    <h2>Shopping Cart</h2>
+    <ul id="cart-items"></ul>
+    <button onclick="hideCart()">Close Cart</button>
+  </div>
+
+  <button onclick="returnToCategories()" class="hidden" id="return-btn">Return</button>
+
+  <script>
+    const products = [
+      { id: 1, name: "NZXT H510", price: 100, category: "Chassi", image: "https://nzxt.com/assets/cms/34299/1617970872-h510-white-black-mainw-system.png?ar64=MTox&auto=format&dpr=1.5&fit=crop&h=400&w=400" },
+      { id: 2, name: "NZXT H510 ELITE", price: 180, category: "Chassi", image: "https://nzxt.com/assets/cms/34299/1615563443-h510-elite-white-black-kraken-x-system-purple-lighting-2.png?ar64=MTox&auto=format&dpr=1.5&fit=crop&h=400&w=400" },
+      { id: 3, name: "i7", price: 300, category: "CPU", image: "https://cf-images.dustin.eu/cdn-cgi/image/format=auto,quality=75,width=828,,fit=contain/image/d2000010011131835/intel-core-i7-14700-21ghz-lga1700-socket-processor.jpg" },
+      { id: 4, name: "Ryzen 7", price: 400, category: "CPU", image: "https://www.proshop.se/Images/915x900/3056707_fd1674cd648f.png" },
+      { id: 5, name: "RTX 3080", price: 650, category: "GPU", image: "https://www.elgiganten.se/image/dv_web_D180001002521714/216111/gigabyte-geforce-rtx-3080-10gb-gaming-oc.jpg" },
+      { id: 6, name: "GTX 1660", price: 250, category: "GPU", image: "https://m.media-amazon.com/images/I/61I8uVpjLpL._AC_UF1000,1000_QL80_.jpg" },
+      { id: 7, name: "Gigabyte B650E Aorus Master", price: 150, category: "Motherboard", image: "https://cdn.mos.cms.futurecdn.net/vjVXxBANPQ6PMLgzCefi5c-1200-80.jpg.webp" },
+      { id: 8, name: "G.Skill Trident Z DDR4 RGB 3200MHz 16GB", price: 50, category: "RAM", image: "https://www.komplett.se/img/p/640/916429.jpg" },
+      { id: 9, name: "G.Skill Trident Z DDR4 RGB 3200MHz 32GB", price: 90, category: "RAM", image: "https://www.komplett.se/img/p/640/916429.jpg" },
+      { id: 10, name: "Samsung 980 PRO M.2 NVMe SSD 1TB", price: 110, category: "SSD", image: "https://cdn.inet.se/product/688x386/4302202_4.png" },
+      { id: 11, name: "Arctic P12 Max Svart", price: 20, category: "Fans", image: "https://cdn.inet.se/product/688x386/5324364_0.png" },
+      { id: 12, name: "be quiet! Pure Rock 2 Svart", price: 50, category: "CPU Fans", image: "https://cdn.inet.se/product/688x386/5323105_6.png" },
+      { id: 13, name: "Corsair RM850e ATX 3.0 850W", price: 80, category: "PSU", image: "https://cdn.inet.se/product/688x386/6905786_9.png" },
+    ];
+
+    let currentCategory = null;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const cartContainer = document.getElementById("cart-items");
+      const productList = document.getElementById("product-list");
+
+      window.addToCart = (productId) => {
+        const selectedProduct = products.find(product => product.id === productId);
+        if (selectedProduct) {
+          const cartItem = document.createElement("li");
+          cartItem.innerHTML = `
+            <div>
+              <img src="${selectedProduct.image}" alt="${selectedProduct.name}">
+              ${selectedProduct.name} - $${selectedProduct.price} <button onclick="removeFromCart(this)">Remove</button>
+            </div>`;
+          cartContainer.appendChild(cartItem);
+        }
+      };
+
+      window.showCart = () => {
+        document.getElementById("cart").classList.remove("hidden");
+        document.getElementById("return-btn").classList.remove("hidden");
+      };
+
+      window.hideCart = () => {
+        document.getElementById("cart").classList.add("hidden");
+        document.getElementById("return-btn").classList.add("hidden");
+        showCurrentState();
+      };
+
+      window.removeFromCart = (button) => {
+        const cartItem = button.parentNode;
+        cartItem.parentNode.removeChild(cartItem);
+      };
+
+      window.toggleCart = () => {
+        const cart = document.getElementById("cart");
+        if (cart.style.display === "none" || cart.style.display === "") {
+          cart.style.display = "flex";
+          document.getElementById("return-btn").classList.remove("hidden");
+        } else {
+          hideCart();
+        }
+      };
+
+      window.showCategory = (category) => {
+        currentCategory = category;
+        productList.innerHTML = '';
+
+        const categoryProducts = products.filter(product => product.category === category);
+
+        categoryProducts.forEach(product => {
+          const productElement = document.createElement("div");
+          productElement.classList.add("product");
+          productElement.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <h2>${product.name}</h2>
+            <p>$${product.price}</p>
+            <button onclick="addToCart(${product.id})">Add to Cart</button>
+          `;
+          productList.appendChild(productElement);
+        });
+
+        document.getElementById("return-btn").classList.remove("hidden");
+      };
+
+      window.returnToCategories = () => {
+        productList.innerHTML = '';
+        document.getElementById("cart").classList.add("hidden");
+        document.getElementById("return-btn").classList.add("hidden");
+        showCategories();
+      };
+
+      window.showCategories = () => {
+        productList.innerHTML = '';
+
+        const uniqueCategories = [...new Set(products.map(product => product.category))];
+
+        uniqueCategories.forEach(category => {
+          const categoryElement = document.createElement("div");
+          categoryElement.classList.add("category");
+          categoryElement.onclick = () => showCategory(category);
+          categoryElement.innerHTML = `<h2>${category}</h2>`;
+          productList.appendChild(categoryElement);
+        });
+      };
+
+      window.showCurrentState = () => {
+        if (currentCategory !== null) {
+          showCategory(currentCategory);
+        } else {
+          showCategories();
+        }
+      };
+
+      showCategories();
+    });
+  </script>
+</body>
+
+</html>
