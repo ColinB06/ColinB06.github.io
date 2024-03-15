@@ -33,7 +33,15 @@
             if (c.flipped && c.img == card.img && c.id != card.id){
               card.completed = true
               c.completed = true
+
               nextTurn = blueTurn;
+              if (blueTurn) {
+                ScorePlayer1 = ScorePlayer1 + 1
+              }
+              else {
+                ScorePlayer2 = ScorePlayer2 + 1
+              }
+                
               
             }
           
