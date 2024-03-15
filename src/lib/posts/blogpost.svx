@@ -1,0 +1,12 @@
+---
+title: Vecka 3
+date: "2024-03-22"
+keywords: ["startup av eget projekt", "styling"]
+---
+
+Laddat ner skeleton och tailwind och startat upp mitt projekt
+
+Har börjat styla min start screen
+
+
+
